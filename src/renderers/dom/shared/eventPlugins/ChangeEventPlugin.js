@@ -32,6 +32,7 @@ var eventTypes = {
     },
     dependencies: [
       'topBlur',
+      'topCancel',
       'topChange',
       'topClick',
       'topFocus',

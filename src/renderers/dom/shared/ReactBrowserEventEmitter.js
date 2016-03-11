@@ -87,6 +87,7 @@ var topEventMapping = {
   topAnimationIteration: getVendorPrefixedEventName('animationiteration') || 'animationiteration',
   topAnimationStart: getVendorPrefixedEventName('animationstart') || 'animationstart',
   topBlur: 'blur',
+  topCancel: 'cancel',
   topCanPlay: 'canplay',
   topCanPlayThrough: 'canplaythrough',
   topChange: 'change',
@@ -305,6 +306,15 @@ var ReactBrowserEventEmitter = Object.assign({}, ReactEventEmitterMixin, {
           // to make sure blur and focus event listeners are only attached once
           isListening.topBlur = true;
           isListening.topFocus = true;
+        } else if (dependency === 'topCancel') {
+          if (isEventSupported('cancel', true)) {
+            ReactBrowserEventEmitter.ReactEventListener.trapCapturedEvent(
+              topEventMapping.topCancel,
+              'cancel',
+              mountAt
+            );
+          }
+          isListening.topCancel = true;
         } else if (topEventMapping.hasOwnProperty(dependency)) {
           ReactBrowserEventEmitter.ReactEventListener.trapBubbledEvent(
             dependency,
